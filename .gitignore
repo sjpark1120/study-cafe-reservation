@@ -1,0 +1,55 @@
+### Node / pnpm 공통
+node_modules
+.pnp
+.pnp.*
+
+### 빌드 아티팩트
+dist
+build
+*.tsbuildinfo
+
+### Next.js (web)
+.next
+out
+next-env.d.ts
+
+### Turbo
+.turbo
+
+### 로그 파일
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+### 테스트 결과
+coverage
+.nyc_output
+
+### 환경 변수 파일
+.env
+.env*.local
+
+### IDE / 에디터
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+.project
+.classpath
+.c9/
+.settings/
+
+### OS
+.DS_Store
+
+### 임시 파일
+.temp
+.tmp
+
