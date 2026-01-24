@@ -53,3 +53,5 @@ coverage
 .temp
 .tmp
 
+# Prisma
+**/generated/prisma
