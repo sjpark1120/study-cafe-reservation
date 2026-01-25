@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaConnectorModule } from './prisma/prisma.module';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { PrismaConnectorModule } from './prisma/prisma.module';
       envFilePath: '.env',
     }),
     PrismaConnectorModule,
+    LoggerModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
