@@ -4,7 +4,7 @@ import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 @Injectable()
-export class PrismaConnector
+export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
