@@ -7,7 +7,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model account {
+model Account {
   account_id BigInt @id @default(autoincrement())
   email String @unique @db.Text
   password String @db.Text
