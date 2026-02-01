@@ -12,6 +12,7 @@ import { MdStore, MdBarChart, MdPerson } from 'react-icons/md';
 
 import LocaleButton from './components/LocaleButton';
 import ThemeButton from './components/ThemeButton';
+import { Button } from '@components/ui/button';
 
 const LOGO_SRC = '/logo.svg';
 
@@ -37,7 +38,7 @@ const AppHeader = () => {
     };
 
     return (
-        <header className="border-outline bg-background w-full border-b">
+        <header className="border-border bg-background w-full border-b">
             <div className="mx-auto flex h-14 max-w-5xl items-center justify-between">
                 <Image
                     src={LOGO_SRC}
@@ -52,28 +53,27 @@ const AppHeader = () => {
                         const isActive = pathname.startsWith(tab.href);
                         const Icon = tab.icon;
                         return (
-                            <button
+                            <Button
                                 key={tab.href}
                                 onClick={() => handleTabClick(tab.href)}
-                                data-active={isActive}
-                                className={`flex items-center gap-2 rounded-md px-4 py-2 font-semibold ${
-                                    isActive && 'bg-primary text-white'
-                                }`}
+                                variant={isActive ? 'default' : 'ghost'}
+                                className="flex cursor-pointer items-center gap-2 font-semibold"
                             >
                                 <Icon className="size-5" />
                                 {t(tab.key)}
-                            </button>
+                            </Button>
                         );
                     })}
                     <ThemeButton />
                     <LocaleButton />
-                    <button
+                    <Button
                         type="button"
                         onClick={openLogin}
-                        className="cursor-pointer rounded-md px-4 py-2 font-semibold"
+                        variant="outline"
+                        className="cursor-pointer"
                     >
                         {t('login')}
-                    </button>
+                    </Button>
                 </nav>
             </div>
         </header>

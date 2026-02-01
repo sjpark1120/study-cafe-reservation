@@ -1,22 +1,25 @@
 import { Moon, Sun } from 'lucide-react';
 import { useThemeStore } from '@stores/theme-store';
+import { Button } from '@components/ui/button';
 
 const ThemeButton = () => {
     const theme = useThemeStore((s) => s.theme);
     const toggleTheme = useThemeStore((s) => s.toggleTheme);
 
     return (
-        <button
+        <Button
             type="button"
             onClick={toggleTheme}
-            className="text-foreground hover:bg-muted cursor-pointer rounded-md p-2"
+            className="cursor-pointer"
+            variant="ghost"
+            size="icon"
         >
             {theme === 'dark' ? (
                 <Sun className="size-5" />
             ) : (
                 <Moon className="size-5" />
             )}
-        </button>
+        </Button>
     );
 };
 
