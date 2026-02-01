@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { pretendard } from './fonts';
 import './globals.css';
+import { Providers } from './providers';
 
-import AppHeader from '@/components/AppHeader';
+import AppHeader from '@components/AppHeader';
 
 export const metadata: Metadata = {
     title: 'Study Spot',
@@ -17,8 +18,10 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <body className={`${pretendard.variable} antialiased`}>
-                <AppHeader />
-                {children}
+                <Providers>
+                    <AppHeader />
+                    <div className="mx-auto max-w-5xl">{children}</div>
+                </Providers>
             </body>
         </html>
     );

@@ -3,18 +3,28 @@
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { MdStore, MdBarChart, MdPerson } from 'react-icons/md';
+import {
+    useLocaleStore,
+    type Locale,
+    type LocaleStore,
+} from '@lib/stores/locale-store';
 
 const LOGO_SRC = '/logo.svg';
 
+const LOCALES = ['ko', 'en'] as const;
+
 const tabs = [
-    { label: 'Cafe ', href: '/cafe', icon: MdStore },
-    { label: 'Statistics', href: '/statistics', icon: MdBarChart },
-    { label: 'My Page', href: '/my-page', icon: MdPerson },
+    { key: 'cafe', href: '/cafe', icon: MdStore },
+    { key: 'statistics', href: '/statistics', icon: MdBarChart },
+    { key: 'myPage', href: '/my-page', icon: MdPerson },
 ] as const;
 
 const AppHeader = () => {
+    const t = useTranslations('header');
     const pathname = usePathname();
     const router = useRouter();
+    const locale = useLocaleStore((s: LocaleStore) => s.locale);
+    const setLocale = useLocaleStore((s: LocaleStore) => s.setLocale);
 
     const handleLogoClick = () => {
         router.push('/');
@@ -49,10 +59,26 @@ const AppHeader = () => {
                                 }`}
                             >
                                 <Icon className="size-5" />
-                                {tab.label}
+                                {t(tab.key)}
                             </button>
                         );
                     })}
+                    <span className="flex items-center gap-1">
+                        {LOCALES.map((loc) => (
+                            <button
+                                key={loc}
+                                type="button"
+                                onClick={() => setLocale(loc as Locale)}
+                                className={`cursor-pointer rounded-md px-2 py-1 text-sm font-medium ${
+                                    locale === loc
+                                        ? 'bg-outline text-foreground'
+                                        : 'text-foreground/70 hover:text-foreground'
+                                }`}
+                            >
+                                {loc}
+                            </button>
+                        ))}
+                    </span>
                 </nav>
             </div>
         </header>
