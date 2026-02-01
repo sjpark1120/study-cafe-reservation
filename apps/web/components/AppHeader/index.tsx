@@ -2,16 +2,15 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { MdStore, MdBarChart, MdPerson } from 'react-icons/md';
 import {
-    useLocaleStore,
-    type Locale,
-    type LocaleStore,
-} from '@lib/stores/locale-store';
+    useAuthModalStore,
+    type AuthModalStore,
+} from '@lib/stores/auth-modal-store';
+import LocaleButton from './components/LocaleButton';
 
 const LOGO_SRC = '/logo.svg';
-
-const LOCALES = ['ko', 'en'] as const;
 
 const tabs = [
     { key: 'cafe', href: '/cafe', icon: MdStore },
@@ -23,8 +22,8 @@ const AppHeader = () => {
     const t = useTranslations('header');
     const pathname = usePathname();
     const router = useRouter();
-    const locale = useLocaleStore((s: LocaleStore) => s.locale);
-    const setLocale = useLocaleStore((s: LocaleStore) => s.setLocale);
+
+    const openLogin = useAuthModalStore((s: AuthModalStore) => s.openLogin);
 
     const handleLogoClick = () => {
         router.push('/');
@@ -63,8 +62,7 @@ const AppHeader = () => {
                             </button>
                         );
                     })}
-                    <span className="flex items-center gap-1">
-                        {LOCALES.map((loc) => (
+                    <LocaleButton />
                             <button
                                 key={loc}
                                 type="button"
