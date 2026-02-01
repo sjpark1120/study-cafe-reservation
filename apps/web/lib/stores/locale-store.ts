@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 export type Locale = 'ko' | 'en'
 
@@ -7,7 +8,12 @@ export interface LocaleStore {
   setLocale: (locale: Locale) => void
 }
 
-export const useLocaleStore = create<LocaleStore>((set) => ({
-  locale: 'ko',
-  setLocale: (locale) => set({ locale }),
-}))
+export const useLocaleStore = create<LocaleStore>()(
+  persist(
+    (set) => ({
+      locale: 'ko',
+      setLocale: (locale) => set({ locale }),
+    }),
+    { name: 'locale' }
+  )
+)

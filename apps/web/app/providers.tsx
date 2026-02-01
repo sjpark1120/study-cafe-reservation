@@ -1,14 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
 import LoginModal from '@components/auth/LoginModal';
+import { ThemeSync } from '@components/ThemeSync';
 import {
     useAuthModalStore,
     type AuthModalStore,
-} from '@lib/stores/auth-modal-store';
-import { useLocaleStore } from '@lib/stores/locale-store';
+} from '@stores/auth-modal-store';
+import { useLocaleStore } from '@stores/locale-store';
 import en from '@/messages/en.json';
 import ko from '@/messages/ko.json';
 
@@ -36,6 +37,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
     return (
         <QueryClientProvider client={queryClient}>
+            <ThemeSync />
             <NextIntlClientProvider locale={locale} messages={messages[locale]}>
                 {children}
                 <LoginModal isOpen={isLoginModalOpen} onClose={closeLogin} />
