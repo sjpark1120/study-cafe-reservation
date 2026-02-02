@@ -10,28 +10,53 @@ import {
 } from '@components/ui/dialog';
 import Image from 'next/image';
 
-import { AuthModalMode, useAuthModalStore } from '@stores/auth-modal-store';
+import { AuthModalView, useAuthModalStore } from '@stores/auth-modal-store';
 
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
+import SignupSuccessView from './components/SignupSuccessView';
 
 const LOGO_SRC = '/logo.svg';
+
+const HEADER_CONFIG = {
+    [AuthModalView.Login]: {
+        titleKey: 'welcomeBack',
+        descriptionKey: 'signInDescription',
+    },
+    [AuthModalView.SignUp]: {
+        titleKey: 'createAccount',
+        descriptionKey: 'signUpDescription',
+    },
+    [AuthModalView.SignupSuccess]: {
+        titleKey: 'signUpComplete',
+        descriptionKey: 'signUpSuccessDescription',
+    },
+} as const;
 
 const AuthModal = () => {
     const t = useTranslations('auth');
     const isOpen = useAuthModalStore((s) => s.isOpen);
-    const mode = useAuthModalStore((s) => s.mode);
+    const view = useAuthModalStore((s) => s.view);
     const close = useAuthModalStore((s) => s.close);
-    const setMode = useAuthModalStore((s) => s.setMode);
 
-    const isLogin = mode === AuthModalMode.Login;
+    const openLogin = useAuthModalStore((s) => s.openLogin);
+    const openSignUp = useAuthModalStore((s) => s.openSignUp);
+    const openSignupSuccess = useAuthModalStore((s) => s.openSignupSuccess);
+
+    const header = HEADER_CONFIG[view];
+
+    const isLogin = view === AuthModalView.Login;
+    const isSignUp = view === AuthModalView.SignUp;
+    const isSignupSuccess = view === AuthModalView.SignupSuccess;
 
     const handleSwitchToSignUp = () => {
-        setMode(AuthModalMode.SignUp);
+        openSignUp();
     };
-
     const handleSwitchToLogin = () => {
-        setMode(AuthModalMode.Login);
+        openLogin();
+    };
+    const handleSignupSuccess = () => {
+        openSignupSuccess();
     };
 
     return (
@@ -51,18 +76,23 @@ const AuthModal = () => {
                         className="mb-4 h-8 w-auto"
                     />
                     <DialogTitle className="text-2xl font-bold">
-                        {isLogin ? t('welcomeBack') : t('createAccount')}
+                        {t(header.titleKey)}
                     </DialogTitle>
                     <DialogDescription>
-                        {isLogin
-                            ? t('signInDescription')
-                            : t('signUpDescription')}
+                        {t(header.descriptionKey)}
                     </DialogDescription>
                 </DialogHeader>
-                {isLogin ? (
+                {isLogin && (
                     <LoginForm onSwitchToSignUp={handleSwitchToSignUp} />
-                ) : (
-                    <SignupForm onSwitchToLogin={handleSwitchToLogin} />
+                )}
+                {isSignUp && (
+                    <SignupForm
+                        onSwitchToLogin={handleSwitchToLogin}
+                        onSignupSuccess={handleSignupSuccess}
+                    />
+                )}
+                {isSignupSuccess && (
+                    <SignupSuccessView onSwitchToLogin={handleSwitchToLogin} />
                 )}
             </DialogContent>
         </Dialog>

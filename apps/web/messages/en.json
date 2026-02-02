@@ -21,6 +21,9 @@
     "alreadyHaveAccount": "Already have an account?",
     "login": "Sign in",
     "name": "Name",
-    "namePlaceholder": "Enter your name"
+    "namePlaceholder": "Enter your name",
+    "signUpComplete": "Sign up complete",
+    "signUpSuccessDescription": "Sign in to use the service",
+    "goToLogin": "Sign in"
   }
 }
