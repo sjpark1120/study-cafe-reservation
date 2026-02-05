@@ -3,17 +3,14 @@
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 
-import {
-    useAuthModalStore,
-    type AuthModalStore,
-} from '@stores/auth-modal-store';
 import { MdStore, MdBarChart, MdPerson } from 'react-icons/md';
 
 import LocaleButton from './components/LocaleButton';
 import ThemeButton from './components/ThemeButton';
 import { Button } from '@components/ui/button';
-import Link from 'next/link';
+import AuthMenuButton from './components/AuthMenuButton';
 
 const LOGO_SRC = '/logo.svg';
 
@@ -26,8 +23,6 @@ const tabs = [
 const AppHeader = () => {
     const t = useTranslations('header');
     const pathname = usePathname();
-
-    const openLogin = useAuthModalStore((s: AuthModalStore) => s.openLogin);
 
     return (
         <header className="border-border bg-background w-full border-b">
@@ -62,14 +57,7 @@ const AppHeader = () => {
                     })}
                     <ThemeButton />
                     <LocaleButton />
-                    <Button
-                        type="button"
-                        onClick={openLogin}
-                        variant="outline"
-                        className="cursor-pointer"
-                    >
-                        {t('login')}
-                    </Button>
+                    <AuthMenuButton />
                 </nav>
             </div>
         </header>
