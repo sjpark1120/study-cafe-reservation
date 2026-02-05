@@ -1,0 +1,30 @@
+{
+  "header": {
+    "cafe": "Cafe",
+    "statistics": "Statistics",
+    "myPage": "My Page",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "ko": "KO",
+    "en": "EN"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInDescription": "Sign in to your account to continue",
+    "createAccount": "Create account",
+    "signUpDescription": "Sign up to use the service",
+    "email": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signIn": "Sign in",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Sign in",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "signUpComplete": "Sign up complete",
+    "signUpSuccessDescription": "Sign in to use the service",
+    "goToLogin": "Sign in"
+  }
+}

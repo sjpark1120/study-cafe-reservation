@@ -1,0 +1,30 @@
+{
+  "header": {
+    "cafe": "카페",
+    "statistics": "통계",
+    "myPage": "마이페이지",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "ko": "KO",
+    "en": "EN"
+  },
+  "auth": {
+    "welcomeBack": "다시 오신 것을 환영합니다",
+    "signInDescription": "계속하려면 계정에 로그인하세요",
+    "createAccount": "계정 만들기",
+    "signUpDescription": "회원가입하여 서비스를 이용하세요",
+    "email": "이메일",
+    "password": "비밀번호",
+    "passwordPlaceholder": "비밀번호를 입력하세요",
+    "signIn": "로그인",
+    "noAccount": "계정이 없으신가요?",
+    "signUp": "회원가입",
+    "alreadyHaveAccount": "이미 계정이 있으신가요?",
+    "login": "로그인",
+    "name": "이름",
+    "namePlaceholder": "이름을 입력하세요",
+    "signUpComplete": "회원가입 완료",
+    "signUpSuccessDescription": "로그인하여 서비스를 이용하세요",
+    "goToLogin": "로그인하기"
+  }
+}
