@@ -1,28 +1,9 @@
-import type { Metadata } from 'next';
-import { pretendard } from './fonts';
-import './globals.css';
-import { Providers } from './providers';
+import { ReactNode } from 'react';
 
-import AppHeader from '@components/AppHeader';
+interface Props {
+    children: ReactNode;
+}
 
-export const metadata: Metadata = {
-    title: 'Study Spot',
-    description: 'Study cafe reservation site',
-};
-
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
-    return (
-        <html lang="ko">
-            <body className={`${pretendard.variable} antialiased`}>
-                <Providers>
-                    <AppHeader />
-                    <div className="mx-auto max-w-5xl">{children}</div>
-                </Providers>
-            </body>
-        </html>
-    );
+export default function RootLayout({ children }: Props) {
+    return children;
 }
