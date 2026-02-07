@@ -1,14 +1,8 @@
 'use client';
 
-import { ChevronDown, Globe } from 'lucide-react'
+import { useLocale } from 'next-intl';
+import { usePathname, useRouter } from '@i18n/navigation';
 
-import {
-    useLocaleStore,
-    type Locale,
-    type LocaleStore,
-    LOCALES,
-    LOCALE_LABELS,
-} from '@lib/stores/locale-store';
 import { Button } from '@components/ui/button';
 import {
     DropdownMenu,
@@ -17,10 +11,21 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu';
+import { ChevronDown, Globe } from 'lucide-react';
+
+const LOCALE_LABELS = {
+    ko: '한국어',
+    en: 'English',
+} as const;
 
 function LocaleButton() {
-    const locale = useLocaleStore((s: LocaleStore) => s.locale);
-    const setLocale = useLocaleStore((s: LocaleStore) => s.setLocale);
+    const locale = useLocale();
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const handleLocaleChange = (locale: string) => {
+        router.push({ pathname }, { locale });
+    };
 
     return (
         <DropdownMenu>
@@ -30,7 +35,9 @@ function LocaleButton() {
                     className="flex cursor-pointer items-center gap-2 font-semibold"
                 >
                     <Globe className="size-5" />
-                    <span>{LOCALE_LABELS[locale]}</span>
+                    <span>
+                        {LOCALE_LABELS[locale as keyof typeof LOCALE_LABELS]}
+                    </span>
                     <ChevronDown className="size-5 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
@@ -40,15 +47,15 @@ function LocaleButton() {
             >
                 <DropdownMenuRadioGroup
                     value={locale}
-                    onValueChange={(v) => setLocale(v as Locale)}
+                    onValueChange={handleLocaleChange}
                 >
-                    {LOCALES.map((loc) => (
+                    {Object.keys(LOCALE_LABELS).map((loc) => (
                         <DropdownMenuRadioItem
                             key={loc}
                             value={loc}
                             className="cursor-pointer"
                         >
-                            {LOCALE_LABELS[loc as Locale]}
+                            {LOCALE_LABELS[loc as keyof typeof LOCALE_LABELS]}
                         </DropdownMenuRadioItem>
                     ))}
                 </DropdownMenuRadioGroup>

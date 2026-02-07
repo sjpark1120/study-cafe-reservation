@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@i18n/navigation';
 
 import { MdStore, MdBarChart, MdPerson } from 'react-icons/md';
 
