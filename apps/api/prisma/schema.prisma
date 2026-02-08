@@ -20,3 +20,35 @@ model Account {
   last_login_at BigInt?
   email_verified_at BigInt?
 }
+
+model Cafe{
+  cafe_id BigInt @id @default(autoincrement())
+  business_number String @db.Text
+  road_address String @db.Text
+  detail_address String @db.Text
+  hash_tags String[] @db.Text
+  created_at BigInt
+  updated_at BigInt?
+
+  image CafeImage?
+  price Price?
+}
+
+model CafeImage{
+  cafe_image_id BigInt @id @default(autoincrement())
+  cafe_id BigInt @unique
+  image_url String @db.Text
+  original_name String @db.Text
+  identified_name String @db.Text
+  extension String @db.VarChar(10)
+
+  cafe Cafe @relation(fields: [cafe_id], references: [cafe_id])
+}
+
+model Price {
+  price_id BigInt @id @default(autoincrement())
+  cafe_id BigInt @unique
+  price_value BigInt
+
+  cafe Cafe @relation(fields: [cafe_id], references: [cafe_id])
+}
