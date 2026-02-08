@@ -45,9 +45,9 @@ const AuthMenuButton = () => {
                     className="flex cursor-pointer items-center gap-2"
                 >
                     <span className="bg-primary/10 text-primary flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold uppercase">
-                        {me.display_name[0]}
+                        {me.displayName[0]}
                     </span>
-                    <span>{me.display_name}</span>
+                    <span>{me.displayName}</span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">

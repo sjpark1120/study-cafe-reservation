@@ -12,7 +12,7 @@ export function useLogin() {
     return useMutation({
         mutationFn: (body: LoginRequest) => loginApi(body),
         onSuccess: (data) => {
-            setAccessToken(data.access_token);
+            setAccessToken(data.accessToken);
             queryClient.refetchQueries({ queryKey: ['me'] });
         },
     });

@@ -1,10 +1,10 @@
 import { request } from '@api/client';
 
 export interface MeResponse {
-    account_id: number;
+    accountId: number;
     email: string;
     name: string;
-    display_name: string;
+    displayName: string;
 }
 
 export function getMe(): Promise<MeResponse> {

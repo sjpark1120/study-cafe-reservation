@@ -8,15 +8,55 @@ datasource db {
 }
 
 model Account {
-  account_id BigInt @id @default(autoincrement())
-  email String @unique @db.Text
-  password String @db.Text
-  name String @db.VarChar(30)
-  display_name String @db.VarChar(30)
-  role String @db.VarChar(15)
-  status String @db.VarChar(10) @default("ACTIVE")
-  created_at BigInt
-  updated_at BigInt?
-  last_login_at BigInt?
-  email_verified_at BigInt?
+  id              BigInt    @id @default(autoincrement()) @map("account_id")
+  email           String    @unique @db.Text
+  password        String    @db.Text
+  name            String    @db.VarChar(30)
+  displayName     String    @db.VarChar(30) @map("display_name")
+  role            String    @db.VarChar(15)
+  status          String    @db.VarChar(10) @default("ACTIVE")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime? @updatedAt @map("updated_at")
+  lastLoginAt     DateTime? @map("last_login_at")
+  emailVerifiedAt DateTime? @map("email_verified_at")
+
+  @@map("accounts")
+}
+
+model Cafe {
+  id             BigInt    @id @default(autoincrement()) @map("cafe_id")
+  businessNumber String    @db.Text @map("business_number")
+  roadAddress    String    @db.Text @map("road_address")
+  detailAddress  String    @db.Text @map("detail_address")
+  hashTags       String[]  @db.Text @map("hash_tags")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @updatedAt @map("updated_at")
+
+  image CafeImage?
+  price Price?
+
+  @@map("cafes")
+}
+
+model CafeImage {
+  id             BigInt @id @default(autoincrement()) @map("cafe_image_id")
+  cafeId         BigInt @unique @map("cafe_id")
+  imageUrl       String @db.Text @map("image_url")
+  originalName   String @db.Text @map("original_name")
+  identifiedName String @db.Text @map("identified_name")
+  extension      String @db.VarChar(10)
+
+  cafe Cafe @relation(fields: [cafeId], references: [id])
+
+  @@map("cafe_images")
+}
+
+model Price {
+  id     BigInt @id @default(autoincrement()) @map("price_id")
+  cafeId BigInt @unique @map("cafe_id")
+  value  BigInt @map("price_value")
+
+  cafe Cafe @relation(fields: [cafeId], references: [id])
+
+  @@map("prices")
 }
