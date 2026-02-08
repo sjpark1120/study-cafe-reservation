@@ -8,13 +8,13 @@ export class AccountService {
   async getMe(accountId: number) {
     const account = await this.prisma.account.findUnique({
       where: {
-        account_id: BigInt(accountId),
+        id: BigInt(accountId),
       },
       select: {
-        account_id: true,
+        id: true,
         email: true,
         name: true,
-        display_name: true,
+        displayName: true,
       },
     });
 
@@ -23,10 +23,10 @@ export class AccountService {
     }
 
     return {
-      account_id: Number(account.account_id),
+      accountId: Number(account.id),
       email: account.email,
       name: account.name,
-      display_name: account.display_name,
+      displayName: account.displayName,
     };
   }
 }

@@ -6,7 +6,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    access_token: string;
+    accessToken: string;
 }
 
 export interface RegisterRequest {
@@ -19,10 +19,10 @@ export interface RegisterResponse {
     account_id: number;
     email: string;
     name: string;
-    display_name: string;
+    displayName: string;
     role: string;
     status: string;
-    created_at: number;
+    createdAt: number;
 }
 
 export function login({
