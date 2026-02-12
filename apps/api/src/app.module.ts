@@ -8,6 +8,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
 import { JwtAuthGuard } from './auth/guard/jwt.guard';
+import { CafeModule } from './cafe/cafe.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { JwtAuthGuard } from './auth/guard/jwt.guard';
     LoggerModule.forRoot(),
     AuthModule,
     AccountModule,
+    CafeModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
