@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CafeListItemResponse } from './dto/cafe.dto';
 
@@ -6,7 +6,7 @@ import { CafeListItemResponse } from './dto/cafe.dto';
 export class CafeService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getCafeList(): Promise<CafeListItemResponse[]> {
+  async getCafes(): Promise<CafeListItemResponse[]> {
     const cafes = await this.prisma.cafe.findMany({
       include: {
         image: true,
@@ -25,5 +25,29 @@ export class CafeService {
       imageUrl: cafe.image?.imageUrl ?? null,
       priceValue: cafe.price ? Number(cafe.price.value) : null,
     }));
+  }
+
+  async getCafeById(cafeId: number): Promise<CafeListItemResponse> {
+    const numericId = BigInt(cafeId);
+
+    const cafe = await this.prisma.cafe.findUnique({
+      where: { id: numericId },
+      include: {
+        image: true,
+        price: true,
+      },
+    });
+
+    if (!cafe) throw new NotFoundException('Cafe not found');
+
+    return {
+      id: Number(cafe.id),
+      businessNumber: cafe.businessNumber,
+      roadAddress: cafe.roadAddress,
+      detailAddress: cafe.detailAddress,
+      hashTags: cafe.hashTags,
+      imageUrl: cafe.image?.imageUrl ?? null,
+      priceValue: cafe.price ? Number(cafe.price.value) : null,
+    };
   }
 }

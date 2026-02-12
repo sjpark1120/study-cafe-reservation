@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { CafeService } from './cafe.service';
 import { CafeListItemResponse } from './dto/cafe.dto';
 import { Public } from '../auth/decorator/public.decorator';
@@ -9,7 +9,15 @@ export class CafeController {
 
   @Public()
   @Get()
-  async getCafeList(): Promise<CafeListItemResponse[]> {
-    return this.cafeService.getCafeList();
+  async findAllCafes(): Promise<CafeListItemResponse[]> {
+    return this.cafeService.getCafes();
+  }
+
+  @Public()
+  @Get(':id')
+  async findCafeById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CafeListItemResponse> {
+    return this.cafeService.getCafeById(id);
   }
 }
