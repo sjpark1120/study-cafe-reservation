@@ -1,7 +1,18 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { CafeService } from './cafe.service';
-import { CafeListItemResponse } from './dto/cafe.dto';
+import { CreateCafeDto, CafeListItemResponse } from './dto/cafe.dto';
 import { Public } from '../auth/decorator/public.decorator';
+import { MAX_FILE_SIZE_BYTES } from '../upload/upload.service';
 
 @Controller('cafes')
 export class CafeController {
@@ -11,6 +22,19 @@ export class CafeController {
   @Get()
   async findAllCafes(): Promise<CafeListItemResponse[]> {
     return this.cafeService.getCafes();
+  }
+
+  @Post()
+  @UseInterceptors(
+    FileInterceptor('image', {
+      limits: { fileSize: MAX_FILE_SIZE_BYTES },
+    }),
+  )
+  async createCafe(
+    @Body() dto: CreateCafeDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ): Promise<CafeListItemResponse> {
+    return this.cafeService.createCafe(dto, file);
   }
 
   @Public()
