@@ -55,3 +55,6 @@ coverage
 
 # Prisma
 **/generated/prisma
+
+# 이미지 파일
+**/uploads/*

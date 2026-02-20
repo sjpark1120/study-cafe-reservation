@@ -1,0 +1,86 @@
+import {
+  IsString,
+  IsArray,
+  IsOptional,
+  IsNumber,
+  Min,
+  MinLength,
+  IsNotEmpty,
+  MaxLength,
+  Allow,
+} from 'class-validator';
+import { Transform } from 'class-transformer';
+
+export interface CafeListItemResponse {
+  id: number;
+  businessNumber: string;
+  roadAddress: string;
+  detailAddress: string;
+  hashTags: string[];
+  imageUrl: string | null;
+  priceValue: number | null;
+}
+
+export class CreateCafeDto {
+  @IsString({ message: 'Business number is required' })
+  @IsNotEmpty({ message: 'Business number is required' })
+  @IsString({ message: 'Business number must be a string' })
+  @MinLength(1, {
+    message: 'Business number must be at least 1 character long',
+  })
+  @MaxLength(255, {
+    message: 'Business number must be less than 255 characters long',
+  })
+  businessNumber: string;
+
+  @IsString({ message: 'Road address is required' })
+  @IsNotEmpty({ message: 'Road address is required' })
+  @IsString({ message: 'Road address must be a string' })
+  @MinLength(1, {
+    message: 'Road address must be at least 1 character long',
+  })
+  @MaxLength(255, {
+    message: 'Road address must be less than 255 characters long',
+  })
+  roadAddress: string;
+
+  @IsString({ message: 'Detail address is required' })
+  @IsNotEmpty({ message: 'Detail address is required' })
+  @IsString({ message: 'Detail address must be a string' })
+  @MinLength(1, {
+    message: 'Detail address must be at least 1 character long',
+  })
+  @MaxLength(255, {
+    message: 'Detail address must be less than 255 characters long',
+  })
+  detailAddress: string;
+
+  @IsArray({ message: 'Hash tags must be an array' })
+  @IsString({ each: true, message: 'Hash tags must be a string' })
+  @IsOptional({ message: 'Hash tags are optional' })
+  @Transform(({ value }): string[] => {
+    if (Array.isArray(value)) return value as string[];
+    if (typeof value === 'string') {
+      return value
+        .split(',')
+        .map((s: string) => s.trim())
+        .filter(Boolean);
+    }
+    return [];
+  })
+  hashTags?: string[];
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0, { message: 'Price must be 0 or greater' })
+  @Transform(({ value }) =>
+    value === '' || value === undefined || value === null
+      ? undefined
+      : Number(value),
+  )
+  priceValue?: number;
+
+  @IsOptional()
+  @Allow()
+  image?: unknown;
+}
