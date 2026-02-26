@@ -2,6 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UploadService, SaveCafeImageResult } from '../upload/upload.service';
 import { CafeListItemResponse, CreateCafeDto } from './dto/cafe.dto';
+import {
+  buildPaginatedResponse,
+  getSkipTake,
+} from '../common/utils/pagination.util';
+import { PaginationQueryDto } from '../common/dto/pagination.dto';
+import { PaginatedResponse } from '../common/types/pagination.types';
 
 @Injectable()
 export class CafeService {
@@ -10,17 +16,26 @@ export class CafeService {
     private readonly uploadService: UploadService,
   ) {}
 
-  async getCafes(): Promise<CafeListItemResponse[]> {
-    const cafes = await this.prisma.cafe.findMany({
-      include: {
-        image: true,
-        price: true,
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-    if (!cafes.length) return [];
+  async getCafes(
+    query: PaginationQueryDto,
+  ): Promise<PaginatedResponse<CafeListItemResponse>> {
+    const { page, limit } = query;
+    const { skip, take } = getSkipTake(page, limit);
 
-    return cafes.map((cafe) => ({
+    const [totalCount, cafes] = await Promise.all([
+      this.prisma.cafe.count(),
+      this.prisma.cafe.findMany({
+        skip,
+        take,
+        include: {
+          image: true,
+          price: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+
+    const rows: CafeListItemResponse[] = cafes.map((cafe) => ({
       id: Number(cafe.id),
       businessNumber: cafe.businessNumber,
       roadAddress: cafe.roadAddress,
@@ -29,6 +44,13 @@ export class CafeService {
       imageUrl: cafe.image?.imageUrl ?? null,
       priceValue: cafe.price ? Number(cafe.price.value) : null,
     }));
+
+    return buildPaginatedResponse({
+      rows,
+      totalCount,
+      page,
+      limit,
+    });
   }
 
   async getCafeById(cafeId: number): Promise<CafeListItemResponse> {

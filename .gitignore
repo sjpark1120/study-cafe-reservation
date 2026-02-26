@@ -1,5 +1,6 @@
 ### Node / pnpm 공통
 node_modules
+.pnpm-store
 .pnp
 .pnp.*
 
