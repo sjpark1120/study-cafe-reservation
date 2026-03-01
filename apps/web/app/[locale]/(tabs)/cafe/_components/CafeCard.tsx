@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import type { CafeWithSeatInfo } from '@/lib/hooks/use-cafes-infinite';
+import type { CafeWithSeatInfo } from '@/lib/hooks/useCafesInfinite';
 
 interface CafeCardProps {
     cafe: CafeWithSeatInfo;

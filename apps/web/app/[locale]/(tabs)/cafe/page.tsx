@@ -9,10 +9,8 @@ import CafeCardSkeleton from './_components/CafeCardSkeleton';
 import CafeCard from './_components/CafeCard';
 
 import { useTranslations } from 'next-intl';
-import {
-    useCafesInfinite,
-    CAFE_PAGE_SIZE,
-} from '@/lib/hooks/use-cafes-infinite';
+import { useCafesInfinite, CAFE_PAGE_SIZE } from '@/lib/hooks/useCafesInfinite';
+import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
 
 const CafePage = () => {
     const t = useTranslations('cafe');

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { useLogin } from '@lib/hooks/use-auth';
+import { useLogin } from '@/lib/hooks/useAuth';
 
 import { Button } from '@components/ui/button';
 import { Field, FieldError, FieldLabel } from '@components/ui/field';

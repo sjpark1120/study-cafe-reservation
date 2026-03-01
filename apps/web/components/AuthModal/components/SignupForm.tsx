@@ -7,7 +7,7 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@components/ui/button';
 import { Field, FieldError, FieldLabel } from '@components/ui/field';
 import { Input } from '@components/ui/input';
-import { useRegister } from '@lib/hooks/use-auth';
+import { useRegister } from '@/lib/hooks/useAuth';
 
 interface SignupFormProps {
     onSwitchToLogin: () => void;

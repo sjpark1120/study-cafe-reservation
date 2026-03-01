@@ -1,9 +1,9 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { login as loginApi, register as registerApi } from '@api/auth-api';
-import type { LoginRequest, RegisterRequest } from '@api/auth-api';
-import { getMe } from '@api/account-api';
+import { login as loginApi, register as registerApi } from '@api/authApi';
+import type { LoginRequest, RegisterRequest } from '@api/authApi';
+import { getMe } from '@/lib/api/accountApi';
 import { setAccessToken } from '@lib/auth-store';
 
 export function useLogin() {
