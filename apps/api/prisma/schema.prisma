@@ -25,7 +25,7 @@ model Account {
 
 model Cafe {
   id             BigInt    @id @default(autoincrement()) @map("cafe_id")
-  businessNumber String    @db.Text @map("business_number")
+  businessName String    @db.Text @map("business_name")
   roadAddress    String    @db.Text @map("road_address")
   detailAddress  String    @db.Text @map("detail_address")
   hashTags       String[]  @db.Text @map("hash_tags")

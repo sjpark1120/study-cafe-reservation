@@ -13,7 +13,7 @@ import { Transform } from 'class-transformer';
 
 export interface CafeListItemResponse {
   id: number;
-  businessNumber: string;
+  businessName: string;
   roadAddress: string;
   detailAddress: string;
   hashTags: string[];
@@ -22,16 +22,16 @@ export interface CafeListItemResponse {
 }
 
 export class CreateCafeDto {
-  @IsString({ message: 'Business number is required' })
-  @IsNotEmpty({ message: 'Business number is required' })
-  @IsString({ message: 'Business number must be a string' })
+  @IsString({ message: 'Business name is required' })
+  @IsNotEmpty({ message: 'Business name is required' })
+  @IsString({ message: 'Business name must be a string' })
   @MinLength(1, {
-    message: 'Business number must be at least 1 character long',
+    message: 'Business name must be at least 1 character long',
   })
   @MaxLength(255, {
-    message: 'Business number must be less than 255 characters long',
+    message: 'Business name must be less than 255 characters long',
   })
-  businessNumber: string;
+  businessName: string;
 
   @IsString({ message: 'Road address is required' })
   @IsNotEmpty({ message: 'Road address is required' })
