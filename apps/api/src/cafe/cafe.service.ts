@@ -37,7 +37,7 @@ export class CafeService {
 
     const rows: CafeListItemResponse[] = cafes.map((cafe) => ({
       id: Number(cafe.id),
-      businessNumber: cafe.businessNumber,
+      businessName: cafe.businessName,
       roadAddress: cafe.roadAddress,
       detailAddress: cafe.detailAddress,
       hashTags: cafe.hashTags,
@@ -68,7 +68,7 @@ export class CafeService {
 
     return {
       id: Number(cafe.id),
-      businessNumber: cafe.businessNumber,
+      businessName: cafe.businessName,
       roadAddress: cafe.roadAddress,
       detailAddress: cafe.detailAddress,
       hashTags: cafe.hashTags,
@@ -90,7 +90,7 @@ export class CafeService {
       const created = await this.prisma.$transaction(async (tx) => {
         const cafe = await tx.cafe.create({
           data: {
-            businessNumber: dto.businessNumber,
+            businessName: dto.businessName,
             roadAddress: dto.roadAddress,
             detailAddress: dto.detailAddress,
             hashTags: dto.hashTags ?? [],
@@ -126,7 +126,7 @@ export class CafeService {
 
       return {
         id: Number(created.id),
-        businessNumber: created.businessNumber,
+        businessName: created.businessName,
         roadAddress: created.roadAddress,
         detailAddress: created.detailAddress,
         hashTags: created.hashTags,
