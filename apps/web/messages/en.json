@@ -26,5 +26,17 @@
     "signUpComplete": "Sign up complete",
     "signUpSuccessDescription": "Sign in to use the service",
     "goToLogin": "Sign in"
+  },
+  "cafe": {
+    "findStudyCafe": "Find my study cafe",
+    "findStudyCafeDescription": "Find a study cafe near you and reserve a seat",
+    "searchPlaceholder": "Search by name or location",
+    "searchError": "An error occurred while loading the study cafe list. Please try again later.",
+    "noMoreCafes": "No more study cafes to load.",
+    "imagePreparing": "Image is preparing",
+    "availableSeats": "{availableSeats} seats available",
+    "totalSeats": "Total {totalSeats} seats",
+    "price": "{price} won / hour",
+    "pricePreparing": "Price information is preparing"
   }
 }

@@ -15,13 +15,13 @@ const toPositiveInt = (value: unknown, max?: number) => {
 
 export class PaginationQueryDto implements PaginationQuery {
   @IsOptional()
-  @Transform(({ value }) => toPositiveInt(value, DEFAULT_PAGE))
+  @Transform(({ value }) => toPositiveInt(value))
   @IsInt()
   @Min(1)
   page: number = DEFAULT_PAGE;
 
   @IsOptional()
-  @Transform(({ value }) => toPositiveInt(value, MAX_PAGE_SIZE))
+  @Transform(({ value }) => toPositiveInt(value))
   @IsInt()
   @Min(1)
   @Max(MAX_PAGE_SIZE)
