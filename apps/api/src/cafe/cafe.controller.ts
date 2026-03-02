@@ -12,9 +12,9 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CafeService } from './cafe.service';
 import { CreateCafeDto, CafeListItemResponse } from './dto/cafe.dto';
+import { GetCafesQueryDto } from './dto/cafe.dto';
 import { Public } from '../auth/decorator/public.decorator';
 import { MAX_FILE_SIZE_BYTES } from '../upload/upload.service';
-import { PaginationQueryDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/types/pagination.types';
 
 @Controller('cafes')
@@ -24,7 +24,7 @@ export class CafeController {
   @Public()
   @Get()
   async findAllCafes(
-    @Query() query: PaginationQueryDto,
+    @Query() query: GetCafesQueryDto,
   ): Promise<PaginatedResponse<CafeListItemResponse>> {
     return this.cafeService.getCafes(query);
   }

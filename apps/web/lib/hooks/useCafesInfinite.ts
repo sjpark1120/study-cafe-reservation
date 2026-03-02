@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getCafes, type CafeListItemResponse } from '@/lib/api/cafe-api';
+import { getCafes, type CafeListItemResponse } from '@api/cafeApi';
 
 export interface CafeWithSeatInfo extends CafeListItemResponse {
     dummyAvailableSeats: number;
@@ -33,13 +33,20 @@ const mapToCafeWithSeatInfo = (
         };
     });
 
-export const useCafesInfinite = () => {
+interface UseCafesInfiniteOptions {
+    search?: string;
+}
+
+export const useCafesInfinite = (options: UseCafesInfiniteOptions = {}) => {
+    const { search } = options;
+
     return useInfiniteQuery({
-        queryKey: ['cafes'],
+        queryKey: ['cafes', search ?? ''],
         queryFn: async ({ pageParam }) => {
             const response = await getCafes({
                 page: pageParam,
                 limit: CAFE_PAGE_SIZE,
+                search: search?.trim() || undefined,
             });
             return {
                 ...response,

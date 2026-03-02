@@ -37,6 +37,15 @@
     "availableSeats": "{availableSeats}석 이용 가능",
     "totalSeats": "총 {totalSeats}석",
     "price": "{price}원 / 시간",
-    "pricePreparing": "요금 정보 준비중"
+    "pricePreparing": "요금 정보 준비중",
+    "backToCafeList": "카페 목록으로 돌아가기",
+    "invalidCafeInfo": "잘못된 카페 정보입니다.",
+    "errorLoadingCafeInfo": "카페 정보를 불러오지 못했어요.",
+    "cafeInfo": "카페 정보",
+    "price Info": "가격",
+    "available": "이용 가능",
+    "selectSeat": "좌석을 선택해주세요",
+    "convenienceFacilities": "편의시설",
+    "seats": "석"
   }
 }

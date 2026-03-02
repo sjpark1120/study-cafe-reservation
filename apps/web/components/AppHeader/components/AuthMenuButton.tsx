@@ -14,7 +14,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu';
-import { useMe, useLogout } from '@lib/hooks/use-auth';
+import { useMe, useLogout } from '@/lib/hooks/useAuth';
 
 const AuthMenuButton = () => {
     const t = useTranslations('header');

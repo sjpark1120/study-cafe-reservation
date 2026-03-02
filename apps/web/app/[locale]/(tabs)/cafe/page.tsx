@@ -1,22 +1,23 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Search } from 'lucide-react';
 
+import { Link } from '@i18n/navigation';
 import { Input } from '@/components/ui/input';
 import CafeCardSkeleton from './_components/CafeCardSkeleton';
 import CafeCard from './_components/CafeCard';
 
 import { useTranslations } from 'next-intl';
-import {
-    useCafesInfinite,
-    CAFE_PAGE_SIZE,
-} from '@/lib/hooks/use-cafes-infinite';
+import { useCafesInfinite, CAFE_PAGE_SIZE } from '@/lib/hooks/useCafesInfinite';
+import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
 
 const CafePage = () => {
     const t = useTranslations('cafe');
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
+    const [searchInput, setSearchInput] = useState('');
+    const debouncedSearch = useDebouncedValue(searchInput);
 
     const {
         data,
@@ -25,7 +26,7 @@ const CafePage = () => {
         isFetchingNextPage,
         isLoading,
         isError,
-    } = useCafesInfinite();
+    } = useCafesInfinite({ search: debouncedSearch });
 
     const cafes = data?.pages.flatMap((page) => page.rows) ?? [];
 
@@ -70,6 +71,8 @@ const CafePage = () => {
                     <Input
                         placeholder={t('searchPlaceholder')}
                         className="border-none bg-transparent px-0 text-sm shadow-none focus-visible:ring-0"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </div>
             </section>
@@ -88,7 +91,9 @@ const CafePage = () => {
                                   (_, index) => <CafeCardSkeleton key={index} />
                               )
                             : cafes.map((cafe) => (
-                                  <CafeCard key={cafe.id} cafe={cafe} />
+                                  <Link key={cafe.id} href={`/cafe/${cafe.id}`}>
+                                      <CafeCard cafe={cafe} />
+                                  </Link>
                               ))}
 
                         {isFetchingNextPage &&
