@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Search } from 'lucide-react';
 
@@ -15,6 +15,8 @@ import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
 const CafePage = () => {
     const t = useTranslations('cafe');
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
+    const [searchInput, setSearchInput] = useState('');
+    const debouncedSearch = useDebouncedValue(searchInput);
 
     const {
         data,
@@ -23,7 +25,7 @@ const CafePage = () => {
         isFetchingNextPage,
         isLoading,
         isError,
-    } = useCafesInfinite();
+    } = useCafesInfinite({ search: debouncedSearch });
 
     const cafes = data?.pages.flatMap((page) => page.rows) ?? [];
 
@@ -68,6 +70,8 @@ const CafePage = () => {
                     <Input
                         placeholder={t('searchPlaceholder')}
                         className="border-none bg-transparent px-0 text-sm shadow-none focus-visible:ring-0"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </div>
             </section>

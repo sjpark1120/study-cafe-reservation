@@ -10,6 +10,18 @@ import {
   Allow,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { IntersectionType } from '@nestjs/mapped-types';
+import { PaginationQueryDto } from '../../common/dto/pagination.dto';
+
+export class GetCafesQueryDto extends IntersectionType(PaginationQueryDto) {
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim() || undefined : undefined,
+  )
+  search?: string;
+}
 
 export interface CafeListItemResponse {
   id: number;

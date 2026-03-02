@@ -2,12 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UploadService, SaveCafeImageResult } from '../upload/upload.service';
 import { CafeListItemResponse, CreateCafeDto } from './dto/cafe.dto';
+import { GetCafesQueryDto } from './dto/cafe.dto';
 import {
   buildPaginatedResponse,
   getSkipTake,
 } from '../common/utils/pagination.util';
-import { PaginationQueryDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/types/pagination.types';
+import type { Prisma } from '../../generated/prisma/client';
 
 @Injectable()
 export class CafeService {
@@ -17,14 +18,27 @@ export class CafeService {
   ) {}
 
   async getCafes(
-    query: PaginationQueryDto,
+    query: GetCafesQueryDto,
   ): Promise<PaginatedResponse<CafeListItemResponse>> {
-    const { page, limit } = query;
+    const { page, limit, search } = query;
     const { skip, take } = getSkipTake(page, limit);
 
+    const where: Prisma.CafeWhereInput | undefined = search
+      ? {
+          OR: [
+            {
+              businessName: { contains: search, mode: 'insensitive' },
+            },
+            { roadAddress: { contains: search, mode: 'insensitive' } },
+            { detailAddress: { contains: search, mode: 'insensitive' } },
+          ],
+        }
+      : undefined;
+
     const [totalCount, cafes] = await Promise.all([
-      this.prisma.cafe.count(),
+      this.prisma.cafe.count({ where }),
       this.prisma.cafe.findMany({
+        where,
         skip,
         take,
         include: {
