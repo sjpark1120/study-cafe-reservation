@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
+import { TagBadge } from '@/components/TagBadge';
 import type { CafeWithSeatInfo } from '@/lib/hooks/useCafesInfinite';
 
 interface CafeCardProps {
@@ -75,15 +75,7 @@ const CafeCard = ({ cafe }: CafeCardProps) => {
                 {hasHashTags && (
                     <div className="mt-1 flex flex-wrap gap-1.5">
                         {cafe.hashTags.map((tag) => (
-                            <Button
-                                key={tag}
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                className="border-border bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground h-7 rounded-full px-3 text-xs font-normal"
-                            >
-                                {tag}
-                            </Button>
+                            <TagBadge key={tag} label={tag} />
                         ))}
                     </div>
                 )}
