@@ -41,3 +41,7 @@ export interface CafePaginatedResponse {
     hasNext: boolean;
     hasPrev: boolean;
 }
+
+export function getCafeById(id: number): Promise<CafeListItemResponse> {
+    return request.get<CafeListItemResponse>(`/cafes/${id}`);
+}

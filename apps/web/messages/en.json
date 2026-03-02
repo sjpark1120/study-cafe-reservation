@@ -37,6 +37,15 @@
     "availableSeats": "{availableSeats} seats available",
     "totalSeats": "Total {totalSeats} seats",
     "price": "{price} won / hour",
-    "pricePreparing": "Price information is preparing"
+    "pricePreparing": "Price information is preparing",
+    "backToCafeList": "Back to cafe list",
+    "invalidCafeInfo": "Invalid cafe info",
+    "errorLoadingCafeInfo": "Error loading cafe info",
+    "cafeInfo": "Cafe info",
+    "price Info": "Price",
+    "available": "Available",
+    "selectSeat": "Select seat",
+    "convenienceFacilities": "Convenience facilities",
+    "seats": "seats"
   }
 }

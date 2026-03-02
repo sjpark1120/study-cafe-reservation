@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Search } from 'lucide-react';
 
+import { Link } from '@i18n/navigation';
 import { Input } from '@/components/ui/input';
 import CafeCardSkeleton from './_components/CafeCardSkeleton';
 import CafeCard from './_components/CafeCard';
@@ -90,7 +91,9 @@ const CafePage = () => {
                                   (_, index) => <CafeCardSkeleton key={index} />
                               )
                             : cafes.map((cafe) => (
-                                  <CafeCard key={cafe.id} cafe={cafe} />
+                                  <Link key={cafe.id} href={`/cafe/${cafe.id}`}>
+                                      <CafeCard cafe={cafe} />
+                                  </Link>
                               ))}
 
                         {isFetchingNextPage &&
