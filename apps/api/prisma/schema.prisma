@@ -34,6 +34,7 @@ model Cafe {
 
   image CafeImage?
   price Price?
+  seats Seat[]
 
   @@map("cafes")
 }
@@ -59,4 +60,20 @@ model Price {
   cafe Cafe @relation(fields: [cafeId], references: [id])
 
   @@map("prices")
+}
+
+
+model Seat {
+  id             BigInt @id @default(autoincrement()) @map("seat_id")
+  cafeId         BigInt @map("cafe_id")
+  seatName       String @db.Text @map("seat_name")
+  seatNumber     Int @map("seat_number")
+  seatType       String @db.VarChar(20) @map("seat_type")
+
+  status     String @db.VarChar(20) @default("IDLE") @map("seat_status")
+  location   String @db.Text @map("location")
+
+  cafe Cafe @relation(fields: [cafeId], references: [id])
+
+  @@map("seats")
 }
