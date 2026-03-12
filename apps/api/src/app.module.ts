@@ -11,6 +11,7 @@ import { JwtAuthGuard } from './auth/guard/jwt.guard';
 import { CafeModule } from './cafe/cafe.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { UPLOADS_CAFE_PATH } from './upload/upload.service';
+import { SeatsModule } from './seats/seats.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UPLOADS_CAFE_PATH } from './upload/upload.service';
     AuthModule,
     AccountModule,
     CafeModule,
+    SeatsModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
