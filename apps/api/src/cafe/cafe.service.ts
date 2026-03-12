@@ -112,6 +112,30 @@ export class CafeService {
           include: { price: true },
         });
 
+        const rows = ['A', 'B', 'C', 'D'] as const;
+        const seatData: Prisma.SeatCreateManyInput[] = [];
+
+        let seatNumber = 1;
+        for (const row of rows) {
+          for (let col = 1; col <= 5; col += 1) {
+            seatData.push({
+              cafeId: cafe.id,
+              seatName: `${row}${col}`,
+              seatNumber,
+              seatType: 'NORMAL',
+              status: 'IDLE',
+              location: '',
+            });
+            seatNumber += 1;
+          }
+        }
+
+        if (seatData.length) {
+          await tx.seat.createMany({
+            data: seatData,
+          });
+        }
+
         let image: { imageUrl: string } | null = null;
         if (saved) {
           image = await tx.cafeImage.create({
